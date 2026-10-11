@@ -2,32 +2,42 @@
   "skills": [
     {
       "name": "git-convention",
-      "description": "Enforce branch/commit/tag naming with -<developer initial> suffix. Use when 'cek git rule', 'buat branch baru', 'mau commit'",
-      "files": ["SKILL.md"],
+      "description": "Enforce branch/commit/tag naming with <developer-initial> suffix. Interview, inspect git, propose names. Use for \"cek git rule\", \"buat branch baru\", \"mau commit\". Baseline tags, Conventional Commits, PR-only.",
+      "files": [
+        "SKILL.md"
+      ],
       "version": "1.0.0"
     },
     {
       "name": "gotth-code-reviewer",
-      "description": "Review code, diffs, and PRs in GOTTH stack (Go, templ, Tailwind, HTMX, Alpine). Prioritized findings report.",
-      "files": ["SKILL.md"],
+      "description": "Review code, diffs, PRs in GOTTH stack (Go, templ, Tailwind, HTMX, Alpine). Prioritized evidence-based findings report. 6-step process, mechanical checks, layer checklists, severity scale. Pairs with gotth-stack.",
+      "files": [
+        "SKILL.md"
+      ],
       "version": "1.0.0"
     },
     {
       "name": "gotth-html-converter",
-      "description": "Convert HTML/CSS/JS designs to GOTTH apps (Go, templ, Tailwind, HTMX, Alpine). Pixel-faithful, working behavior.",
-      "files": ["SKILL.md"],
+      "description": "Convert HTML/CSS/JS designs to GOTTH apps (Go, templ, Tailwind v4, HTMX, Alpine). Pixel-faithful visuals, working behavior. 7-phase workflow: inventory, tokens, components, behavior, pages, verify, cleanup.",
+      "files": [
+        "SKILL.md"
+      ],
       "version": "1.0.0"
     },
     {
       "name": "gotth-stack",
-      "description": "Architecture rules, patterns, checklists for GOTTH stack web UI. Server-rendered HTML, hypermedia, no SPA APIs.",
-      "files": ["SKILL.md"],
+      "description": "Architecture rules, patterns, checklists for GOTTH stack (Go, templ, Tailwind v4, HTMX, Alpine). Server-rendered HTML, hypermedia, no SPA APIs. Use for handlers, components, forms, modals, live validation, infinite scroll.",
+      "files": [
+        "SKILL.md"
+      ],
       "version": "1.0.0"
     },
     {
       "name": "skills-urls-agent-skills-registry",
-      "description": "Set up remote agent-skills-registry repo for Kilo via skills.urls. Central shared skills source.",
-      "files": ["SKILL.md"],
+      "description": "Set up remote agent-skills-registry for Kilo via skills.urls. Central shared skills source, index.json manifest, per-mode folders. Remote skills untrusted (no inline command exec), lowest discovery priority.",
+      "files": [
+        "SKILL.md"
+      ],
       "version": "1.0.0"
     }
   ]
