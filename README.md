@@ -95,4 +95,4 @@ See individual skill files for license information. The git-convention skill is 
 
 ---
 
-*This README was generated/updated as part of the agent-skills-registry setup.*
+*This README was generated/updated as part of the agent-skills-registry setup. Last updated: 11 Oct 2026*

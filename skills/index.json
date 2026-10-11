@@ -20,7 +20,12 @@
       "name": "gotth-html-converter",
       "description": "Convert HTML/CSS/JS designs to GOTTH apps (Go, templ, Tailwind v4, HTMX, Alpine). Pixel-faithful visuals, working behavior. 7-phase workflow: inventory, tokens, components, behavior, pages, verify, cleanup.",
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "references/note.md",
+        "references/css-conversion.md",
+        "references/visual-regression.md",
+        "references/jquery-to-gotth.md",
+        "references/source-stack-profile.md"
       ],
       "version": "1.0.0"
     },
@@ -28,7 +33,8 @@
       "name": "gotth-stack",
       "description": "Architecture rules, patterns, checklists for GOTTH stack (Go, templ, Tailwind v4, HTMX, Alpine). Server-rendered HTML, hypermedia, no SPA APIs. Use for handlers, components, forms, modals, live validation, infinite scroll.",
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "references/gotth-rules.md"
       ],
       "version": "1.0.0"
     },

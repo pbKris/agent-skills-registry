@@ -9,7 +9,7 @@ Turn a finished visual design into a functional, tidy GOTTH app **without the vi
 
 ## 0. Read these first
 
-1. `gotth-stack/SKILL.md` and `gotth-stack/references/gotth-rules.md`: rules, guardrails, precedence, Project overrides.
+1. `../gotth-stack/SKILL.md` and `../gotth-stack/references/gotth-rules.md`: rules, guardrails, precedence, Project overrides.
 2. `references/source-stack-profile.md` in this skill: what the source UI is built with. **Its status may be `ASSUMED`** (plain HTML/CSS + jQuery). Treat assumed values as hypotheses, see section 1.
 3. Load the others only when needed:
    - `references/css-conversion.md`: before touching CSS or the Tailwind entry file. The project uses **Tailwind v4, CSS-first, no config file**; this file is written for that.

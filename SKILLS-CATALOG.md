@@ -29,27 +29,6 @@ Or: `npx skills@latest add pbk/git-convention`
 
 ---
 
-## skills-urls-agent-skills-registry
-
-**Purpose**: Set up and maintain a remote agent-skills-registry repo consumable by Kilo via `skills.urls` in kilo.jsonc.
-
-**Use when**: User wants central shared skills source, publish skills from registry, or structure `index.json` manifest.
-
-**Documentation covers**:
-- `index.json` manifest shape (`name`, `description`, `files`, optional `version`)
-- Repo structure (`skills/index.json` with skill folders containing `SKILL.md`)
-- URL rules (folder not file, trailing `/`, name must match folder)
-- Per-mode folders (`skills-code`, `skills-plan`)
-- Generator script for `index.json`
-- Verification via "What skills do you have available?"
-
-**Key points**:
-- Remote skills are untrusted - inline ``!`command``` not executed
-- Remote URLs have lowest discovery priority
-- Kilo auto re-fetches when skill version changes
-
----
-
 ## gotth-code-reviewer
 
 **Purpose**: Review code, diffs, and pull requests in GOTTH stack projects and produce prioritized evidence-based findings.
@@ -110,6 +89,27 @@ Or: `npx skills@latest add pbk/git-convention`
 - Testing (httptest with HX-Request, validation path, escaping)
 
 **Pairs with**: gotth-code-reviewer, gotth-html-converter
+
+---
+
+## skills-urls-agent-skills-registry
+
+**Purpose**: Set up and maintain a remote agent-skills-registry repo consumable by Kilo via `skills.urls` in kilo.jsonc.
+
+**Use when**: User wants central shared skills source, publish skills from registry, or structure `index.json` manifest.
+
+**Documentation covers**:
+- `index.json` manifest shape (`name`, `description`, `files`, optional `version`)
+- Repo structure (`skills/index.json` with skill folders containing `SKILL.md`)
+- URL rules (folder not file, trailing `/`, name must match folder)
+- Per-mode folders (`skills-code`, `skills-plan`)
+- Generator script for `index.json`
+- Verification via "What skills do you have available?"
+
+**Key points**:
+- Remote skills are untrusted - inline ``!`command``` not executed
+- Remote URLs have lowest discovery priority
+- Kilo auto re-fetches when skill version changes
 
 ---
 

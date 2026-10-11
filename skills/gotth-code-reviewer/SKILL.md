@@ -7,7 +7,7 @@ description: Review code, diffs, PRs in GOTTH stack (Go, templ, Tailwind, HTMX, 
 
 Review GOTTH code the way a senior maintainer would: find the problems that will hurt in production or confuse the next developer, explain why, and show the fix. Do not pad the review with taste-based nitpicks.
 
-The rules being enforced live in `gotth-stack/references/gotth-rules.md` (rule IDs, default severities, guardrails, precedence, project overrides). Read it before reviewing, and read `gotth-stack/SKILL.md` for the reasoning behind the rules.
+The rules being enforced live in `../gotth-stack/references/gotth-rules.md` (rule IDs, default severities, guardrails, precedence, project overrides). Read it before reviewing, and read `gotth-stack/SKILL.md` for the reasoning behind the rules.
 
 ## 1. Review principles
 
@@ -29,7 +29,7 @@ The rules being enforced live in `gotth-stack/references/gotth-rules.md` (rule I
 
 ## 3. Rules being enforced
 
-Source: `gotth-stack/references/gotth-rules.md`. Do not restate or reinterpret the rules from memory; use the file.
+Source: `../gotth-stack/references/gotth-rules.md`. Do not restate or reinterpret the rules from memory; use the file.
 
 - **Cite rule IDs** in every finding (`Rule: HTMX-3`). It makes findings checkable and stops arguments about taste.
 - **Start severity from the rule's default** (the `Sev` column), then raise or lower it with evidence from this code. Explain any change in one clause.
