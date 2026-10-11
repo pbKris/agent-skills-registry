@@ -1,6 +1,6 @@
 ---
 name: gotth-code-reviewer
-description: Review code, diffs, and pull requests in a GOTTH stack project (Go, templ, Tailwind CSS, HTMX, Alpine.js) and produce a prioritized, evidence-based findings report. Use this skill whenever the user asks to review, audit, critique, sanity-check, or "look over" Go handlers, .templ components, hx-* markup, Alpine usage, Tailwind classes, or a PR/diff in such a codebase. Also use it when the user asks "is this right?", "why doesn't my swap work?", "anything wrong with this?", or pastes HTMX/templ/Go-handler code and wants feedback, even if they never say "review". Pairs with the gotth-stack skill, which defines the rules this reviewer enforces; read it first if available.
+description: Review code, diffs, PRs in GOTTH stack (Go, templ, Tailwind, HTMX, Alpine). Prioritized evidence-based findings report. 6-step process, mechanical checks, layer checklists, severity scale. Pairs with gotth-stack.
 ---
 
 # GOTTH Code Reviewer

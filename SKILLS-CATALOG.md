@@ -120,7 +120,7 @@ To add a new skill to this registry:
 1. Create directory: `skills/<skill-name>/`
 2. Add `SKILL.md` with YAML frontmatter (`name`, `description`)
 3. Include any reference files in `references/` subdirectory
-4. Run generator: `bash scripts/index-json-generator.sh`
+4. Run generator: `python scripts/index-json-generator.py`
 5. Update this catalog (SKILLS.md)
 6. Commit following git-convention: `chore: add <skill-name> skill`
 7. Tag if milestone: `vN-baseline-<context>-pbk`

@@ -1,11 +1,44 @@
-{ "skills": [
- {"name": "git-convention", "description": "Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. When invoked, agent MUST interview user about task, then inspect workspace + git history. Use when the user wants to create branches, commits, or tags following pbk's conventions, asks \"cek git rule\", \"buat branch baru\", or \"mau commit\". Also use for workflows requiring baseline tags, Conventional Commits, PR-only pushes, and integration with other skills via universal naming conventions.", "files": ["SKILL.md"]}
-,
- {"name": "gotth-code-reviewer", "description": "Review code, diffs, and pull requests in a GOTTH stack project (Go, templ, Tailwind CSS, HTMX, Alpine.js) and produce a prioritized, evidence-based findings report. Use this skill whenever the user asks to review, audit, critique, sanity-check, or \"look over\" Go handlers, .templ components, hx-* markup, Alpine usage, Tailwind classes, or a PR/diff in such a codebase. Also use it when the user asks \"is this right?\", \"why doesn't my swap work?\", \"anything wrong with this?\", or pastes HTMX/templ/Go-handler code and wants feedback, even if they never say \"review\". Pairs with the gotth-stack skill, which defines the rules this reviewer enforces; read it first if available.", "files": ["SKILL.md"]}
-,
- {"name": "gotth-html-converter", "description": "Convert an existing UI design (static HTML, CSS, and JavaScript such as jQuery, or a mockup/template/legacy front end) into a working GOTTH application (Go, templ, Tailwind, HTMX, Alpine) with pixel-faithful visuals and working behavior. Use this skill whenever the user wants to convert, migrate, port, slice, templatize, or \"turn this HTML/design into templ/Go/HTMX\", wants to replace jQuery with HTMX/Alpine, wants to move CSS to Tailwind, or hands over HTML/CSS/JS files, a template theme, or a design export and asks for it to run on the GOTTH stack. Use it even if the user only says \"make this design work in our Go app\". Pairs with gotth-stack (rules and patterns) and gotth-code-reviewer (review of the result).", "files": ["SKILL.md"]}
-,
- {"name": "gotth-stack", "description": "Architecture rules, patterns, and checklists for building web UI with the GOTTH stack (Go, templ, Tailwind CSS v4 CSS-first with no config file, HTMX, Alpine.js). Use this skill whenever the user works on a Go web app that renders HTML on the server, or mentions templ, .templ files, HTMX, hx-* attributes, Alpine.js, Tailwind in a Go project, hypermedia, HTML fragments/partials, or asks for a handler, component, form, table, modal, inline edit, search-as-you-type, infinite scroll, or any interactive UI in this codebase. Also use it when reviewing, refactoring, or debugging such code, even if the user never names the stack and just says \"add a button that deletes a row\" or \"make this form validate live\". Do NOT build JSON APIs or SPA-style code for the UI when this skill applies.", "files": ["SKILL.md"]}
-,
- {"name": "skills-urls-agent-skills-registry", "description": "Set up and maintain a remote agent-skills-registry repo consumable by Kilo via `skills.urls` in kilo.jsonc. Use when the user wants a central shared skills source without symlinking or copying skills into every project, wants to publish skills from a registry repo over agents skills on Github, wants to structure an `index.json` manifest, wants per-mode skill folders (skills-code, skills-plan), or asks how Kilo fetches and namespaces remote skills. Also use when explaining that remote skills are untrusted (inline ``!`command``` in SKILL.md is not executed) and that remote URLs have the lowest discovery priority.", "files": ["SKILL.md"]}
-] }
+{
+  "skills": [
+    {
+      "name": "git-convention",
+      "description": "Enforce branch/commit/tag naming with <developer-initial> suffix. Interview, inspect git, propose names. Use for \"cek git rule\", \"buat branch baru\", \"mau commit\". Baseline tags, Conventional Commits, PR-only.",
+      "files": [
+        "SKILL.md"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "name": "gotth-code-reviewer",
+      "description": "Review code, diffs, PRs in GOTTH stack (Go, templ, Tailwind, HTMX, Alpine). Prioritized evidence-based findings report. 6-step process, mechanical checks, layer checklists, severity scale. Pairs with gotth-stack.",
+      "files": [
+        "SKILL.md"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "name": "gotth-html-converter",
+      "description": "Convert HTML/CSS/JS designs to GOTTH apps (Go, templ, Tailwind v4, HTMX, Alpine). Pixel-faithful visuals, working behavior. 7-phase workflow: inventory, tokens, components, behavior, pages, verify, cleanup.",
+      "files": [
+        "SKILL.md"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "name": "gotth-stack",
+      "description": "Architecture rules, patterns, checklists for GOTTH stack (Go, templ, Tailwind v4, HTMX, Alpine). Server-rendered HTML, hypermedia, no SPA APIs. Use for handlers, components, forms, modals, live validation, infinite scroll.",
+      "files": [
+        "SKILL.md"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "name": "skills-urls-agent-skills-registry",
+      "description": "Set up remote agent-skills-registry for Kilo via skills.urls. Central shared skills source, index.json manifest, per-mode folders. Remote skills untrusted (no inline command exec), lowest discovery priority.",
+      "files": [
+        "SKILL.md"
+      ],
+      "version": "1.0.0"
+    }
+  ]
+}

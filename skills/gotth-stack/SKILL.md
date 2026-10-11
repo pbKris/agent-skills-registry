@@ -1,6 +1,6 @@
 ---
 name: gotth-stack
-description: Architecture rules, patterns, and checklists for building web UI with the GOTTH stack (Go, templ, Tailwind CSS v4 CSS-first with no config file, HTMX, Alpine.js). Use this skill whenever the user works on a Go web app that renders HTML on the server, or mentions templ, .templ files, HTMX, hx-* attributes, Alpine.js, Tailwind in a Go project, hypermedia, HTML fragments/partials, or asks for a handler, component, form, table, modal, inline edit, search-as-you-type, infinite scroll, or any interactive UI in this codebase. Also use it when reviewing, refactoring, or debugging such code, even if the user never names the stack and just says "add a button that deletes a row" or "make this form validate live". Do NOT build JSON APIs or SPA-style code for the UI when this skill applies.
+description: Architecture rules, patterns, checklists for GOTTH stack (Go, templ, Tailwind v4, HTMX, Alpine). Server-rendered HTML, hypermedia, no SPA APIs. Use for handlers, components, forms, modals, live validation, infinite scroll.
 ---
 
 # GOTTH Stack Skill

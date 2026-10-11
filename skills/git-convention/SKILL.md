@@ -1,17 +1,18 @@
 ---
 name: git-convention
-description: Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. When invoked, agent MUST interview user about task, then inspect workspace + git history. Use when the user wants to create branches, commits, or tags following pbk's conventions, asks "cek git rule", "buat branch baru", or "mau commit". Also use for workflows requiring baseline tags, Conventional Commits, PR-only pushes, and integration with other skills via universal naming conventions.
+description: Enforce branch/commit/tag naming with <developer-initial> suffix. Interview, inspect git, propose names. Use for "cek git rule", "buat branch baru", "mau commit". Baseline tags, Conventional Commits, PR-only.
 ---
 
-# git-convention — Git Workflow Rules for pbk
+# git-convention — Git Workflow Rules
 
 > **Skill Name:** `git-convention`
-> **Owner:** pbk (P B Kristantio / pbkris_va)
-> **Purpose:** Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. When invoked, agent MUST interview user about task, then inspect workspace + git history.
+> **Owner:** <developer-initial> (e.g., pbk)
+> **Purpose:** Enforce industry-standard naming for branch, commit, and tag with developer initial `<developer-initial>`. When invoked, agent MUST interview user about task, then inspect workspace + git history.
 
 ## 0. How this skill works when invoked
 
 **Trigger:** User types `/git-convention` or says "cek git rule", "buat branch baru", "mau commit".
+> **Note:** Replace `<developer-initial>` with your initials (e.g., `pbk`, `jdoe`, `asm`) throughout this workflow.
 
 ### Agent Invocation Protocol (WAJIB)
 
@@ -21,7 +22,8 @@ Agent WAJIB tanya dulu, jangan langsung bikin branch:
 1. Kamu mau ngerjain apa? (feat / fix / hotfix / refactor / chore / docs / test / spike)
 2. Scope / modul apa? (auth, payment, api, ui, infra)
 3. Ada ticket/issue number? (opsional, contoh: JIRA-123, #45)
-4. Ini baseline / milestone? (kalau iya, kita butuh tag v<N>-baseline-*-pbk)
+4. Ini baseline / milestone? (kalau iya, kita butuh tag v<N>-baseline-*-<developer-initial>)
+5. Developer initial kamu apa? (contoh: pbk, jdoe, asm)
 ```
 
 **Step 2 - Workspace & Git Health Check:**
@@ -37,7 +39,7 @@ git stash list
 git branch --show-current
 git remote -v
 git log --oneline --graph --decorate -20
-git tag --list "v*-*pbk" --sort=-v:refname | head -20
+git tag --list "v*-*<developer-initial>" --sort=-v:refname | head -20
 
 # 3. Cleanliness
 git branch --merged
@@ -48,8 +50,8 @@ Agent harus laporkan:
 - Apakah working tree clean atau kotor
 - Branch sekarang dan base branch (main/develop)
 - 5 commit terakhir
-- Tag baseline terakhir (v<N>-baseline-*-pbk)
-- Apakah ada branch `*-pbk` yang sudah ada dengan nama mirip
+- Tag baseline terakhir (v<N>-baseline-*-<developer-initial>)
+- Apakah ada branch `*-<developer-initial>` yang sudah ada dengan nama mirip
 
 **Step 3 - Decision:**
 Baru setelah itu agent suggest nama branch/commit/tag sesuai rule di bawah, dan minta konfirmasi user.
@@ -60,16 +62,16 @@ Baru setelah itu agent suggest nama branch/commit/tag sesuai rule di bawah, dan 
 
 ### Format
 ```
-<type>/<scope>-<short-desc>-pbk
+<type>/<scope>-<short-desc>-<developer-initial>
 ```
 Atau jika ada ticket:
 ```
-<type>/<ticket>-<scope>-<short-desc>-pbk
+<type>/<ticket>-<scope>-<short-desc>-<developer-initial>
 ```
 
 ### Rules
 - Selalu lowercase, kebab-case, tanpa spasi
-- Selalu akhiri dengan `-pbk` (developer initial)
+- Selalu akhiri dengan `-<developer-initial>` (developer initial)
 - `<type>` WAJIB salah satu:
   - `feat` - fitur baru
   - `fix` - bugfix di develop
@@ -86,9 +88,9 @@ Atau jika ada ticket:
 - Base branch:
   - `feat/*`, `fix/*`, `refactor/*`, `chore/*`, `docs/*`, `test/*`, `spike/*` -> dari `develop` (atau `main` jika repo trunk-based)
   - `hotfix/*`, `release/*` -> dari `main`
-  - Jangan pernah branch dari branch `*-pbk` orang lain tanpa izin
+  - Jangan pernah branch dari branch `*-<developer-initial>` orang lain tanpa izin
 
-### Examples (GOOD)
+### Examples (GOOD) — using `pbk` as example
 ```
 feat/auth-add-login-pbk
 feat/JIRA-123-payment-gateway-pbk
@@ -108,7 +110,7 @@ release/v1.2.0-pbk
 pbk-feat-login (salah posisi initial)
 feat/Auth_Login (uppercase + underscore)
 fix bug login (spasi)
-feat/login (tanpa -pbk)
+feat/login (tanpa -<developer-initial>)
 main (jangan push langsung)
 ```
 
@@ -136,7 +138,7 @@ Mengikuti **Conventional Commits** + best practice.
 - Body: jelaskan WHY, bukan WHAT. Bungkus di 72 char per baris. Pisahkan dengan baris kosong dari subject.
 - Footer: `BREAKING CHANGE:`, `Closes #123`, `Refs JIRA-123`
 - Satu commit = satu logical change. Jangan campur refactor + feat.
-- Initial `pbk` TIDAK perlu di commit message (sudah ada di branch), tapi WAJIB ada di tag.
+- Initial `<developer-initial>` TIDAK perlu di commit message (sudah ada di branch), tapi WAJIB ada di tag.
 - Tidak ada `WIP` commit di branch yang akan di-PR. Gunakan `git commit --fixup` atau stash.
 
 ### Examples (GOOD)
@@ -179,26 +181,26 @@ Tag dipakai untuk **baseline / milestone / checkpoint** yang penting. Selalu ann
 
 ### Format
 ```
-v<N>-baseline-<context>-pbk
+v<N>-baseline-<context>-<developer-initial>
 ```
 Atau untuk milestone lebih spesifik:
 ```
-v<MAJOR>-baseline-<type>-<context>-pbk
-v<MAJOR>.<MINOR>-baseline-<context>-pbk
+v<MAJOR>-baseline-<type>-<context>-<developer-initial>
+v<MAJOR>.<MINOR>-baseline-<context>-<developer-initial>
 ```
 
 ### Rules
 - Selalu lowercase, kebab-case
 - Selalu mulai dengan `v<N>` dimana N = 0,1,2,... (iteration/major version)
 - Selalu ada kata `baseline` di tengah (sebagai marker checkpoint)
-- Selalu akhiri dengan `-pbk`
+- Selalu akhiri dengan `-<developer-initial>`
 - `<context>`: deskripsi singkat baseline: `start`, `mvp-auth`, `payment-stable`, `pre-release`, `alpha`, `beta`, `rc`, `stable`, `infra-ready`
 - Gunakan annotated tag: `git tag -a <tag> -m "message"`
 - Tag dibuat dari branch `main` atau `develop` yang sudah clean & tested
 - Jangan pernah delete/rewrite tag yang sudah di-push (immutable)
 - Push tag: `git push origin <tag>`
 
-### Examples (GOOD)
+### Examples (GOOD) — using `pbk` as example
 ```
 v0-baseline-start-pbk
 v0-baseline-initial-setup-pbk
@@ -215,12 +217,12 @@ v1.0-baseline-rc-pbk
 v0-basline-start-pbk (typo baseline)
 baseline-v0-start (salah urutan)
 v1-start-pbk (tanpa baseline keyword)
-v0-baseline-start (tanpa -pbk)
+v0-baseline-start (tanpa -<developer-initial>)
 v0_baseline_start_pbk (underscore)
 ```
 
 ### When to create baseline tag?
-- `v0-baseline-start-pbk`: saat repo pertama kali siap di-develop
+- `v0-baseline-start-<developer-initial>`: saat repo pertama kali siap di-develop
 - Setiap selesai 1 fitur besar / MVP slice
 - Sebelum refactor besar / migrasi beresiko
 - Sebelum release ke staging/prod
@@ -232,8 +234,8 @@ git checkout main
 git pull
 git status # harus clean
 npm test / go test / etc # harus green
-git tag -a v1-baseline-mvp-auth-pbk -m "baseline: MVP auth flow complete - login, register, jwt"
-git push origin v1-baseline-mvp-auth-pbk
+git tag -a v1-baseline-mvp-auth-<developer-initial> -m "baseline: MVP auth flow complete - login, register, jwt"
+git push origin v1-baseline-mvp-auth-<developer-initial>
 ```
 
 ---
@@ -245,31 +247,32 @@ Ketika `/git-convention` di-invoke, agent harus lakukan ini berurutan:
 ### Phase 1: Grill
 - [ ] Tanya: mau ngerjain apa, type, scope, ticket, perlu baseline?
 - [ ] Tanya: base branch mau dari mana? (main/develop)
+- [ ] Tanya: developer initial apa? (contoh: pbk)
 
 ### Phase 2: Inspect
 - [ ] `git status --porcelain` -> laporkan file dirty/untracked
 - [ ] `git branch --show-current` dan `git log --oneline -10`
-- [ ] `git tag --list "v*-*pbk" -n` -> baseline terakhir
+- [ ] `git tag --list "v*-*<developer-initial>" -n` -> baseline terakhir
 - [ ] `git diff --stat` -> apa yang berubah
-- [ ] Cek apakah ada branch dengan nama mirip: `git branch -a | grep pbk`
+- [ ] Cek apakah ada branch dengan nama mirip: `git branch -a | grep <developer-initial>`
 
 ### Phase 3: Propose
-- [ ] Suggest 1-2 nama branch yang valid sesuai rule: `<type>/<scope>-<desc>-pbk`
+- [ ] Suggest 1-2 nama branch yang valid sesuai rule: `<type>/<scope>-<desc>-<developer-initial>`
 - [ ] Jika ada perubahan: suggest commit message conventional
-- [ ] Jika user bilang ini baseline: suggest tag `v<N>-baseline-<context>-pbk` dengan N = last tag N+1
+- [ ] Jika user bilang ini baseline: suggest tag `v<N>-baseline-<context>-<developer-initial>` dengan N = last tag N+1
 - [ ] Jelaskan kenapa nama itu dipilih
 
 ### Phase 4: Execute (after user YES)
-- [ ] Jika working tree kotor dan user mau branch baru: `git stash push -m "temp: before <new-branch>-pbk"`
+- [ ] Jika working tree kotor dan user mau branch baru: `git stash push -m "temp: before <new-branch>-<developer-initial>"`
 - [ ] `git checkout <base-branch> && git pull`
-- [ ] `git checkout -b <new-branch-pbk>`
+- [ ] `git checkout -b <new-branch-<developer-initial>>`
 - [ ] Jika ada stash: `git stash pop`
 - [ ] Untuk tag: `git tag -a <tag> -m "<message>"`
 
 ### Phase 5: Guardrails
 - [ ] JANGAN pernah `git push --force` ke main/develop tanpa konfirmasi eksplisit
 - [ ] JANGAN pernah commit langsung ke main/develop
-- [ ] JANGAN pernah buat tag tanpa `-pbk` dan tanpa `baseline`
+- [ ] JANGAN pernah buat tag tanpa `-<developer-initial>` dan tanpa `baseline`
 - [ ] Selalu ingatkan untuk buat PR, bukan push langsung
 
 ---
@@ -277,14 +280,14 @@ Ketika `/git-convention` di-invoke, agent harus lakukan ini berurutan:
 ## 5. Quick Reference Card
 
 ```
-BRANCH: <type>/<scope>-<kebab>-pbk
+BRANCH: <type>/<scope>-<kebab>-<developer-initial>
    ex: feat/auth-add-login-pbk
        fix/payment-race-condition-pbk
 
 COMMIT: <type>(scope): <imperative subject>
    ex: feat(auth): add login throttling with redis
 
-TAG: v<N>-baseline-<context>-pbk (annotated)
+TAG: v<N>-baseline-<context>-<developer-initial> (annotated)
    ex: v0-baseline-start-pbk
        v1-baseline-mvp-auth-pbk
        v2-baseline-stable-pbk
@@ -303,8 +306,8 @@ ALWAYS:
 Skill ini kompatibel dengan standar aliran kerja yang umum dipakai di berbagai proyek pengembangan:
 
 - **Definisi fitur sebelum branch**: Sering kali ada skill atau proses untuk mendefinisikan fitur sebelum membuat branch. Biasanya melibatkan diskusi, penulisan deskripsi, dan persetujuan stakeholder.
-- **Branch dibuat via konvensi**: Setiap ticket atau fitur dibuat menggunakan branch naming convention: `<type>/<scope>-<desc>-pbk`. Konvensi ini kompatibel dengan berbagai tools dan workflows.
-- **Test dan code review di branch `*-pbk`**: Setiap branch dapat dijalankan uji (test, code review) sebelum di-merge. Alur ini kompatibel dengan tools seperti `/tdd`, `/code-review`, dan sejenis skill lain yang berjalan di branch sementara.
+- **Branch dibuat via konvensi**: Setiap ticket atau fitur dibuat menggunakan branch naming convention: `<type>/<scope>-<desc>-<developer-initial>`. Konvensi ini kompatibel dengan berbagai tools dan workflows.
+- **Test dan code review di branch `*-<developer-initial>`**: Setiap branch dapat dijalankan uji (test, code review) sebelum di-merge. Alur ini kompatibel dengan tools seperti `/tdd`, `/code-review`, dan sejenis skill lain yang berjalan di branch sementara.
 - **Suggest perbaikan setelah review**: Evaluasi perbaikan dari sesi evaluasi (seperti post-mortem, refleksi, atau sprint review) dapat mengintegrasikan hasil dari konvensi git-convention.
 
 Cara install sebagai skill:
@@ -315,7 +318,7 @@ cp git-convention.md .claude/skills/git-convention/SKILL.md
 
 Atau pakai skills.sh:
 ```
-npx skills@latest add pbk/git-convention
+npx skills@latest add <developer-initial>/git-convention
 ```
 
 ---
@@ -330,8 +333,9 @@ npx skills@latest add pbk/git-convention
 > 2. Scope: auth/payment/api/ui?
 > 3. Deskripsi singkat?
 > 4. Perlu baseline tag setelah selesai?
+> 5. Developer initial? (contoh: pbk)
 
-**User:** Mau bikin fitur login throttling, scope auth, feat.
+**User:** Mau bikin fitur login throttling, scope auth, feat, initial pbk.
 
 **Agent:** (setelah cek git status, log, tags)
 > Kondisi sekarang:

@@ -1,6 +1,6 @@
 ---
 name: gotth-html-converter
-description: Convert an existing UI design (static HTML, CSS, and JavaScript such as jQuery, or a mockup/template/legacy front end) into a working GOTTH application (Go, templ, Tailwind, HTMX, Alpine) with pixel-faithful visuals and working behavior. Use this skill whenever the user wants to convert, migrate, port, slice, templatize, or "turn this HTML/design into templ/Go/HTMX", wants to replace jQuery with HTMX/Alpine, wants to move CSS to Tailwind, or hands over HTML/CSS/JS files, a template theme, or a design export and asks for it to run on the GOTTH stack. Use it even if the user only says "make this design work in our Go app". Pairs with gotth-stack (rules and patterns) and gotth-code-reviewer (review of the result).
+description: Convert HTML/CSS/JS designs to GOTTH apps (Go, templ, Tailwind v4, HTMX, Alpine). Pixel-faithful visuals, working behavior. 7-phase workflow: inventory, tokens, components, behavior, pages, verify, cleanup.
 ---
 
 # GOTTH HTML Converter

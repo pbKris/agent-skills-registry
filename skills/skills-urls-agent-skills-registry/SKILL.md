@@ -1,6 +1,6 @@
 ---
 name: skills-urls-agent-skills-registry
-description: Set up and maintain a remote agent-skills-registry repo consumable by Kilo via `skills.urls` in kilo.jsonc. Use when the user wants a central shared skills source without symlinking or copying skills into every project, wants to publish skills from a registry repo over agents skills on Github, wants to structure an `index.json` manifest, wants per-mode skill folders (skills-code, skills-plan), or asks how Kilo fetches and namespaces remote skills. Also use when explaining that remote skills are untrusted (inline ``!`command``` in SKILL.md is not executed) and that remote URLs have the lowest discovery priority.
+description: Set up remote agent-skills-registry for Kilo via skills.urls. Central shared skills source, index.json manifest, per-mode folders. Remote skills untrusted (no inline command exec), lowest discovery priority.
 ---
 
 # Skills URLs Agent Skills Registry
@@ -20,7 +20,7 @@ In `kilo.jsonc`:
 }
 ```
 
-- `skills.paths` accepts absolute paths (local, trusted).
+- `skills.paths` accepts absolute, `~/`, or relative paths. Trusted only if declared in global `~/.config/kilo/kilo.jsonc`, not in project `.kilo/kilo.jsonc`.
 - `skills.urls` accepts URLs to remote skill directories that serve an `index.json` manifest.
 
 The remote server must serve `index.json` at the URL path with this shape:
@@ -106,7 +106,7 @@ Real community examples:
 
 ## Per-mode skill folders (`skills-code`, `skills-plan`)
 
-Native `skills.urls` does not support mode-specific filtering. Mode-specific is only documented for local paths via the `skills-{mode-slug}` directory naming pattern.
+Native `skills.urls` does not support mode-specific filtering. Mode-specific folders only work for local `skills.paths` / `~/.kilo/skills-{mode-slug}/`. For remote, use generic skills with "Use in code mode only" in `description`.
 
 Two options:
 
@@ -121,12 +121,11 @@ skills-plan/  index.json
 ```
 
 ```jsonc
+// ~/.config/kilo/kilo.jsonc - global biar trusted
 {
   "skills": {
     "urls": [
-      "https://raw.githubusercontent.com/username/agent-skills-registry/main/skills",
-      "https://raw.githubusercontent.com/username/agent-skills-registry/main/skills-code",
-      "https://raw.githubusercontent.com/username/agent-skills-registry/main/skills-plan"
+      "https://raw.githubusercontent.com/pbKris/agent-skills-registry/main/skills/"
     ]
   }
 }
@@ -136,24 +135,54 @@ Kilo merges all three. For true mode filtering you still need a local script sym
 
 ## Generating `index.json`
 
-Avoid hand-editing:
+Never hand-edit `index.json` — descriptions with `"` will break JSON.
+
+Use the generator in `scripts/` (JSON-safe):
 
 ```bash
-#!/bin/bash
-cd skills
-echo '{ "skills": [' > index.json
-first=1
-for d in */; do
-  name=$(basename $d)
-  desc=$(grep -m1 "description:" $d/SKILL.md | sed 's/description: //')
-  [ $first -eq 0 ] && echo "," >> index.json
-  first=0
-  echo " {\"name\": \"$name\", \"description\": \"$desc\", \"files\": [\"SKILL.md\"]}" >> index.json
-done
-echo '] }' >> index.json
+#!/usr/bin/env python3
+import json, glob, os, re
+
+root = "skills"
+skills = []
+
+for d in sorted(glob.glob(f"{root}/*/")):
+    name = os.path.basename(os.path.normpath(d))
+    skill_md = os.path.join(d, "SKILL.md")
+    if not os.path.exists(skill_md):
+        continue
+    
+    text = open(skill_md, encoding="utf-8").read()
+    # ambil description dari frontmatter
+    m = re.search(r'^description:\s*(.+)$', text, re.MULTILINE)
+    desc = m.group(1).strip() if m else ""
+    # potong biar ideal 120-250 char, Kilo max 1024
+    desc = desc[:350]
+
+    # list semua file yang mau di-publish (SKILL.md wajib)
+    files = ["SKILL.md"]
+    # kalau ada references/, assets/, scripts/ tambahin otomatis
+    for extra in glob.glob(f"{d}/references/*"):
+        if os.path.isfile(extra):
+            files.append(os.path.relpath(extra, d))
+
+    skills.append({
+        "name": name,
+        "description": desc,
+        "files": files,
+        "version": "1.0.0"
+    })
+
+with open(f"{root}/index.json", "w", encoding="utf-8") as out:
+    json.dump({"skills": skills}, out, indent=2, ensure_ascii=False)
+    out.write("\n")
+
+print(f"Generated {root}/index.json with {len(skills)} skills")
 ```
 
-Push to `main`, bump `version` on changed entries, and Kilo auto re-fetches the cache.
+Kilo re-fetches automatically whenever a skill's version changes — see plugins/kms/skills/index.json, and get automatic re-fetch whenever index.json's per-skill version bumps.
+
+Push to `main`, bump `version` on changed entries, and Kilo auto re-fetches the cache. Kilo fetches each listed file from {url}/{skill-name}/{file}, atomically replaces its local cache when a skill's version string 
 
 ## Verification
 

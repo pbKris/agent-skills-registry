@@ -43,7 +43,7 @@ agent-skills-registry/
 │       ├── SKILL.md          # GOTTH stack builder
 │       └── gotth-skills-rules-note.md
 └── scripts/
-    └── index-json-generator.sh  # Script to regenerate index.json (escapes JSON special chars)
+    └── index-json-generator.py  # Python script to regenerate index.json
 ```
 
 ## Usage
@@ -85,7 +85,7 @@ To add new skills to this registry:
 
 1. Create a new directory under `skills/` with your skill name
 2. Add a `SKILL.md` file following the Kilo skill format (YAML frontmatter with `name` and `description`)
-3. Run `bash scripts/index-json-generator.sh` to regenerate the `index.json` manifest
+3. Run `python scripts/index-json-generator.py` to regenerate the `index.json` manifest
 4. Commit changes following the git-convention in this repo (conventional commits)
 5. Push to main branch and create a version bump if desired (annotated tag: `vN-baseline-context-pbk`)
 
