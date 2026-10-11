@@ -2,11 +2,12 @@
   "skills": [
     {
       "name": "git-convention",
-      "description": "Enforce branch/commit/tag naming with <developer-initial> suffix. Interview, inspect git, propose names. Use for \"cek git rule\", \"buat branch baru\", \"mau commit\". Baseline tags, Conventional Commits, PR-only.",
+      "description": "Enforce branch/commit/tag naming with <developer-initial> suffix. Interview, inspect git, propose names. Use for \"cek git rule\", \"buat branch baru\", \"mau commit\". Baseline tags, Conventional Commits, PR-only. Repo ber-submodule (.gitmodules): bump/update vendor, baca references/submodule-vendor.md.",
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "references/submodule-vendor.md"
       ],
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "name": "gotth-code-reviewer",

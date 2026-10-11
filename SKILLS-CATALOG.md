@@ -6,17 +6,18 @@ Complete catalog of all skills available in this registry.
 
 ## git-convention
 
-**Purpose**: Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`.
+**Purpose**: Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. **Repo ber-submodule (.gitmodules): bump/update vendor, baca references/submodule-vendor.md.**
 
-**Trigger**: User types `/git-convention` or says "cek git rule", "buat branch baru", "mau commit".
+**Trigger**: User types `/git-convention` or says "cek git rule", "buat branch baru", "mau commit". **Repo ber-submodule: update/bump vendor skills.**
 
 **Features**:
 - Interview workflow (grill) before creating branch
 - Branch naming: `<type>/<scope>-<desc>-pbk` (or `<type>/<ticket>-<scope>-<desc>-pbk`)
 - Commit messages: Conventional Commits format `<type>(<scope>): <subject>`
 - Tag conventions: Annotated tags `vN-baseline-<context>-pbk`
-- Workspace & git health checks before operations
+- Workspace & git health checks before operations (includes submodule status if `.gitmodules` exists)
 - Baseline tags for milestones
+- **Submodule vendor management** (`references/submodule-vendor.md`): read-only vendor skills, pointer bump workflow, sync after context switch
 
 **Integration**: Universal naming conventions compatible with any skill/tool workflow.
 

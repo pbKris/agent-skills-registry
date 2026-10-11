@@ -12,7 +12,7 @@ See the [Skills Catalog](SKILLS-CATALOG.md) for the complete list of available s
 
 | Skill | Description |
 |-------|-------------|
-| **git-convention** | Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. Universal conventions for branch `<type>/<scope>-<desc>-pbk`, commit Conventional Commits, annotated tags `vN-baseline-context-pbk`. |
+| **git-convention** | Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. Universal conventions for branch `<type>/<scope>-<desc>-pbk`, commit Conventional Commits, annotated tags `vN-baseline-context-pbk`. **Submodule vendor support** (`references/submodule-vendor.md`). |
 | **skills-urls-agent-skills-registry** | Set up and maintain a remote agent-skills-registry repo consumable by Kilo via `skills.urls` in kilo.jsonc. Documents manifest, repo structure, URL rules, per-mode folders. |
 | **gotth-code-reviewer** | Review code, diffs, and PRs in GOTTH stack projects and produce prioritized evidence-based findings. |
 | **gotth-html-converter** | Convert existing UI design (HTML/CSS/JS like jQuery) into working GOTTH application with pixel-faithful visuals. |
@@ -95,4 +95,4 @@ See individual skill files for license information. The git-convention skill is 
 
 ---
 
-*This README was generated/updated as part of the agent-skills-registry setup. Last updated: 11 Oct 2026*
+*This README was generated/updated as part of the agent-skills-registry setup. Last updated: 11 Oct 2026 (git-convention v1.1.0: submodule vendor support)*

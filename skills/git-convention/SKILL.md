@@ -1,6 +1,6 @@
 ---
 name: git-convention
-description: Enforce branch/commit/tag naming with <developer-initial> suffix. Interview, inspect git, propose names. Use for "cek git rule", "buat branch baru", "mau commit". Baseline tags, Conventional Commits, PR-only.
+description: Enforce branch/commit/tag naming with <developer-initial> suffix. Interview, inspect git, propose names. Use for "cek git rule", "buat branch baru", "mau commit". Baseline tags, Conventional Commits, PR-only. Repo ber-submodule (.gitmodules): bump/update vendor, baca references/submodule-vendor.md.
 ---
 
 # git-convention — Git Workflow Rules
@@ -44,6 +44,9 @@ git tag --list "v*-*<developer-initial>" --sort=-v:refname | head -20
 # 3. Cleanliness
 git branch --merged
 git fetch --prune --dry-run
+
+# 4. Submodule (hanya jika ada .gitmodules)
+git submodule status
 ```
 
 Agent harus laporkan:
@@ -52,6 +55,7 @@ Agent harus laporkan:
 - 5 commit terakhir
 - Tag baseline terakhir (v<N>-baseline-*-<developer-initial>)
 - Apakah ada branch `*-<developer-initial>` yang sudah ada dengan nama mirip
+- Jika ada `.gitmodules`: status submodule (sinkron / basi / kotor). Aturan lengkap: `references/submodule-vendor.md`
 
 **Step 3 - Decision:**
 Baru setelah itu agent suggest nama branch/commit/tag sesuai rule di bawah, dan minta konfirmasi user.
@@ -265,6 +269,7 @@ Ketika `/git-convention` di-invoke, agent harus lakukan ini berurutan:
 ### Phase 4: Execute (after user YES)
 - [ ] Jika working tree kotor dan user mau branch baru: `git stash push -m "temp: before <new-branch>-<developer-initial>"`
 - [ ] `git checkout <base-branch> && git pull`
+- [ ] Jika ada `.gitmodules`: sinkronkan submodule dan jalankan `.kilo/link-skills.sh` (`references/submodule-vendor.md` §3)
 - [ ] `git checkout -b <new-branch-<developer-initial>>`
 - [ ] Jika ada stash: `git stash pop`
 - [ ] Untuk tag: `git tag -a <tag> -m "<message>"`
@@ -274,6 +279,7 @@ Ketika `/git-convention` di-invoke, agent harus lakukan ini berurutan:
 - [ ] JANGAN pernah commit langsung ke main/develop
 - [ ] JANGAN pernah buat tag tanpa `-<developer-initial>` dan tanpa `baseline`
 - [ ] Selalu ingatkan untuk buat PR, bukan push langsung
+- [ ] JANGAN `git add -A` / `git commit -a` bila `git status` menampilkan baris submodule; vendor read-only, bump pointer = commit sendiri (`references/submodule-vendor.md` §4)
 
 ---
 
