@@ -1,17 +1,17 @@
 ---
-name: git-rule
-description: Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. When invoked, agent MUST interview user about task, then inspect workspace + git history. Use when the user wants to create branches, commits, or tags following pbk's conventions, asks "cek git rule", "buat branch baru", or "mau commit". Also use for workflows requiring baseline tags, Conventional Commits, PR-only pushes, and integration with Matt Pocock skills like `/grill-with-docs`, `/to-spec`, `/to-tickets`, `/tdd`, `/code-review`, and `/retro`.
+name: git-convention
+description: Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. When invoked, agent MUST interview user about task, then inspect workspace + git history. Use when the user wants to create branches, commits, or tags following pbk's conventions, asks "cek git rule", "buat branch baru", or "mau commit". Also use for workflows requiring baseline tags, Conventional Commits, PR-only pushes, and integration with other skills via universal naming conventions.
 ---
 
-# git-rule — Git Workflow Rules for pbk
+# git-convention — Git Workflow Rules for pbk
 
-> **Skill Name:** `git-rule`
+> **Skill Name:** `git-convention`
 > **Owner:** pbk (P B Kristantio / pbkris_va)
 > **Purpose:** Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. When invoked, agent MUST interview user about task, then inspect workspace + git history.
 
 ## 0. How this skill works when invoked
 
-**Trigger:** User types `/git-rule` or says "cek git rule", "buat branch baru", "mau commit".
+**Trigger:** User types `/git-convention` or says "cek git rule", "buat branch baru", "mau commit".
 
 ### Agent Invocation Protocol (WAJIB)
 
@@ -240,7 +240,7 @@ git push origin v1-baseline-mvp-auth-pbk
 
 ## 4. Full Workflow Checklist for Agent
 
-Ketika `/git-rule` di-invoke, agent harus lakukan ini berurutan:
+Ketika `/git-convention` di-invoke, agent harus lakukan ini berurutan:
 
 ### Phase 1: Grill
 - [ ] Tanya: mau ngerjain apa, type, scope, ticket, perlu baseline?
@@ -298,31 +298,31 @@ ALWAYS:
 
 ---
 
-## 6. Integration with Matt Pocock Skills
+## 6. Integration with Other Skills
 
-Skill ini kompatibel dengan flow:
-- `/grill-with-docs` -> untuk definisi fitur sebelum bikin branch
-- `/to-spec` -> spec disimpan, lalu branch dibuat via `/git-rule`
-- `/to-tickets` -> setiap ticket = 1 branch `feat/<ticket>-<desc>-pbk`
-- `/tdd` + `/code-review` -> dijalankan di branch `*-pbk`
-- `/retro` -> bisa suggest perbaikan git-rule ini
+Skill ini kompatibel dengan standar aliran kerja yang umum dipakai di berbagai proyek pengembangan:
+
+- **Definisi fitur sebelum branch**: Sering kali ada skill atau proses untuk mendefinisikan fitur sebelum membuat branch. Biasanya melibatkan diskusi, penulisan deskripsi, dan persetujuan stakeholder.
+- **Branch dibuat via konvensi**: Setiap ticket atau fitur dibuat menggunakan branch naming convention: `<type>/<scope>-<desc>-pbk`. Konvensi ini kompatibel dengan berbagai tools dan workflows.
+- **Test dan code review di branch `*-pbk`**: Setiap branch dapat dijalankan uji (test, code review) sebelum di-merge. Alur ini kompatibel dengan tools seperti `/tdd`, `/code-review`, dan sejenis skill lain yang berjalan di branch sementara.
+- **Suggest perbaikan setelah review**: Evaluasi perbaikan dari sesi evaluasi (seperti post-mortem, refleksi, atau sprint review) dapat mengintegrasikan hasil dari konvensi git-convention.
 
 Cara install sebagai skill:
 ```
-mkdir -p .claude/skills/git-rule/
-cp git-rule.md .claude/skills/git-rule/SKILL.md
+mkdir -p .claude/skills/git-convention/
+cp git-convention.md .claude/skills/git-convention/SKILL.md
 ```
 
 Atau pakai skills.sh:
 ```
-npx skills@latest add pbk/git-rule
+npx skills@latest add pbk/git-convention
 ```
 
 ---
 
 ## 7. Example Session
 
-**User:** /git-rule
+**User:** /git-convention
 
 **Agent:** 
 > Mau ngerjain apa hari ini? 
