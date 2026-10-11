@@ -8,7 +8,7 @@ This repository serves as a central source for agent skills that can be consumed
 
 ## Skills Included
 
-See the [Skills Catalog](SKILLS.md) for the complete list of available skills. Currently includes:
+See the [Skills Catalog](SKILLS-CATALOG.md) for the complete list of available skills. Currently includes:
 
 | Skill | Description |
 |-------|-------------|

@@ -127,4 +127,4 @@ To add a new skill to this registry:
 
 ---
 
-*Last updated: 2025 - Auto-generated from index.json and skill files*
+*Last updated: 11 Oct 2026 - Auto-generated from index.json and skill files*
