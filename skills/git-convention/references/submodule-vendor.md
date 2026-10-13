@@ -6,7 +6,7 @@ Diuji pada git 2.43 dengan submodule dangkal: `switch`, `submodule update --init
 
 ## 1. Prinsip
 
-- Vendor **read-only**. Isi `.kilo/vendor/<v>/` hanya berubah lewat repo asalnya. Untuk vendor milik sendiri (gotth): edit dan push di checkout terpisah, lalu bump pointer di repo ini.
+- Vendor **read-only**. Isi `.kilo/vendor/<v>/` hanya berubah lewat repo asalnya. Untuk vendor milik sendiri (pbk): edit dan push di checkout terpisah, lalu bump pointer di repo ini.
 - Repo ini hanya mencatat **SHA pointer**. Skill adalah instruksi untuk agent, jadi perubahan pointer = perubahan perilaku agent. Perlakukan seperti perubahan kode: ditinjau dan di-commit sendiri.
 - `.kilo/skills/` dan `.kilo/skills-*/` adalah hasil generate. Tidak pernah di-commit.
 

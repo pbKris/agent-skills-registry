@@ -46,6 +46,36 @@
         "SKILL.md"
       ],
       "version": "1.0.0"
+    },
+    {
+      "name": "change-manifest",
+      "description": "Ubah pilihan skill vendor di .kilo/skills.manifest lalu regenerasi symlink (link-skills.sh): tambah, pindah mode, hapus, atau ganti skill/vendor. Gate wajib - pemilik concern, ketergantungan, nama bentrok, anggaran per mode. Use for \"tambah skill\", \"aktifkan skill\", \"hapus skill dari manifest\", \"pindah skill ke mode\", \"ganti skill\", \"update manifest\", \"link-skills\".",
+      "files": [
+        "SKILL.md",
+        "references/vendor-facts.md"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "name": "create-plan",
+      "description": "Translator tipis: Matt artifacts (GLOSSARY.md, ADRs, SPEC, Tickets) \u2192 .kilo/plans/. Read-only input, write only .kilo/plans/.",
+      "files": [
+        "SKILL.md"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "name": "go",
+      "description": "Wrapper spf13/go dengan index-go.md router (hemat 83% token). Load SKILL.md tipis + index + 1 reference vs 1142 baris spf13/go.",
+      "files": [
+        "SKILL.md",
+        "index-go.md",
+        "references/go-base.md",
+        "references/go-testing.md",
+        "references/go-architecture.md",
+        "references/go-mod.md"
+      ],
+      "version": "1.0.0"
     }
   ]
 }
