@@ -46,7 +46,6 @@ To make this registry available as a source of agentic files (skills, agents, ru
 | Skill | Description | Owner |
 |-------|-------------|-------|
 | `git-convention` | Git workflow rules: branch naming, commit messages, tag conventions with developer initial enforcement | `pbk` |
-| `change-manifest` | Skill manifest and version management | `pbk` |
 | `go` | Go language skill with references and best practices | `pbk` |
 | `gotth-html-converter` | HTML conversion utilities | - |
 | `gotth-stack` | Stack-related development guides | - |
