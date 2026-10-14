@@ -66,8 +66,7 @@
     "name": "cli-commands",
     "description": "CLI commands and workflow scripts",
     "files": [
-      "scripts/submodule-catalog-generator.py",
-       "scripts/link-agent-files.sh"
+      "scripts/submodule-catalog-generator.py"
     ],
     "version": "1.0.0"
   },

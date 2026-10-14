@@ -5,7 +5,6 @@ A curated collection of specialized AI skills for software engineering tasks. Ea
 ## Structure
 
 ```
-├── .kilo/              - Kilo configuration (manifest and linking script)
 ├── agents/             - Agent configurations and setups
 ├── rules-code/         - Rules for specific Mode Code (Kilo native)
 ├── rules-system-designer/ - Rules for specific Mode/Agent System designer (custom mode)
@@ -26,18 +25,15 @@ To make this registry available as a source of agentic files (skills, agents, ru
     git submodule add <repository-url> .kilo/vendor/pbk
     ```
 
-2. Run the linking script to create symlinks in `.kilo/` that point to the submodule contents:
+2. Create symlinks in `.kilo/` for the directories you want to expose (e.g., `agents`, `rules-code`, `rules-system-designer`, `skills-plan`, `skills`) pointing to the corresponding directories inside the submodule. For example:
     ```bash
-    .kilo/vendor/pbk/.kilo/link-agent-files.sh
+    ln -s ../../vendor/pbk/agents .kilo/agents
+    ln -s ../../vendor/pbk/rules-code .kilo/rules-code
+    ln -s ../../vendor/pbk/rules-system-designer .kilo/rules-system-designer
+    ln -s ../../vendor/pbk/skills-plan .kilo/skills-plan
+    ln -s ../../vendor/pbk/skills .kilo/skills
     ```
-    This will create the following symlinks inside `.kilo/`:
-    - `agents` → `../vendor/pbk/agents`
-    - `rules-code` → `../vendor/pbk/rules-code`
-    - `rules-system-designer` → `../vendor/pbk/rules-system-designer`
-    - `skills-plan` → `../vendor/pbk/skills-plan`
-    - `skills` → `../vendor/pbk/skills`
-
-    (All paths are relative, so they remain valid even if the submodule path changes. Replace `pbk` with your own registry name as needed.)
+    (Adjust the relative paths if you placed the submodule elsewhere.)
 
 3. After linking, Kilo will automatically load skills, agents, and rules from the submodule.
 
