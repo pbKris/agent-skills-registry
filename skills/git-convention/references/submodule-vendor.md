@@ -8,7 +8,7 @@ Diuji pada git 2.43 dengan submodule dangkal: `switch`, `submodule update --init
 
 - Vendor **read-only**. Isi `.kilo/vendor/<v>/` hanya berubah lewat repo asalnya. Untuk vendor milik sendiri (pbk): edit dan push di checkout terpisah, lalu bump pointer di repo ini.
 - Repo ini hanya mencatat **SHA pointer**. Skill adalah instruksi untuk agent, jadi perubahan pointer = perubahan perilaku agent. Perlakukan seperti perubahan kode: ditinjau dan di-commit sendiri.
-- `.kilo/skills/` dan `.kilo/skills-*/` adalah hasil generate. Tidak pernah di-commit.
+- **Repo ini tidak menyediakan manifest atau script linking**. Konsumen harus menyediakan manifest sendiri (daftar direktori yang diekspos) dan mekanisme linking (symlink atau script kustom) di `.kilo/` mereka sendiri.
 
 ## 2. Membaca status
 
@@ -28,7 +28,6 @@ Setelah `checkout`, `switch`, `pull`, `merge`, `rebase`:
 
 1. Sekali per clone: `git config submodule.recurse true`. Setelah itu `switch`/`checkout` menyelaraskan submodule otomatis. Cek: `git config --get submodule.recurse`.
 2. Jika masih ` M` atau awalan `+`: `git submodule update --init --depth 1`.
-3. `.kilo/link-skills.sh` agar symlink mengikuti pointer. Harapan: tanpa `HILANG:` atau `BENTROK:`.
 
 ## 4. Staging dan commit
 
@@ -36,36 +35,35 @@ Setelah `checkout`, `switch`, `pull`, `merge`, `rebase`:
 - Bump pointer = commit tersendiri, tidak dicampur dengan fitur:
   - `chore(skills): bump <vendor> to <sha7>`
   - `chore(skills): add <vendor> submodule`
-  - `chore(skills): activate <skill> in <mode>` (perubahan `skills.manifest`; boleh satu commit dengan pointer bila saling terkait)
+  - `chore(skills): activate <skill> in <mode>` (perubahan manifest konsumen; boleh satu commit dengan pointer bila saling terkait)
 - Branch: `chore/skills-bump-<vendor>-<developer-initial>`. Satu vendor per branch agar mudah di-revert.
-- Body commit: ringkas perubahan pada skill yang dipakai manifest (hasil §5 langkah 4), bukan salinan log upstream.
+- Body commit: ringkas perubahan pada skill yang dipakai manifest konsumen (hasil §5 langkah 4), bukan salinan log upstream.
 
 ## 5. Update vendor (hanya atas permintaan user)
 
 1. Buat branch sesuai §4. Catat pointer lama: `OLD=$(git rev-parse HEAD:.kilo/vendor/<v>)`
 2. `git submodule update --remote --depth 1 .kilo/vendor/<v>`, lalu `NEW=$(git -C .kilo/vendor/<v> rev-parse HEAD)`
 3. Jika `OLD` = `NEW`: selesai, tidak ada yang berubah.
-4. Tinjau **isi**, bukan log. Untuk setiap path vendor itu di `.kilo/skills.manifest`:
+4. Tinjau **isi**, bukan log. Untuk setiap path vendor yang diekspos di manifest konsumen:
    `git -C .kilo/vendor/<v> diff $OLD $NEW -- <path-tanpa-awalan-vendor>`
    (`git diff --submodule=log` hanya menampilkan ujung `OLD` dan `NEW` karena riwayat dangkal; `git diff --submodule=diff` menampilkan seluruh isi.)
 5. Laporkan ke user: file skill terpakai yang berubah; skill hilang atau di-rename; perubahan frontmatter (`name:`, `disable-model-invocation`, `allowed-tools`); instruksi baru yang menjalankan perintah atau mengakses jaringan.
-6. `.kilo/link-skills.sh` → tanpa `HILANG:` atau `BENTROK:`. Tunggu konfirmasi user.
+6. Tunggu konfirmasi user.
 7. `git add .kilo/vendor/<v>` (path eksplisit) lalu commit sesuai §4.
 
 Rollback: `git revert <commit-bump>`, lalu §3.
 
 ## 6. Tambah / hapus vendor
 
-- Tambah: `git submodule add --depth 1 <url> .kilo/vendor/<name>`, tambah baris di `skills.manifest`, `.kilo/link-skills.sh`, commit `chore(skills): add <vendor> submodule`.
-- Hapus: hapus baris manifest vendor itu, `git submodule deinit -f .kilo/vendor/<name>`, `git rm -f .kilo/vendor/<name>`, `.kilo/link-skills.sh`, commit. Folder `.git/modules/.kilo/vendor/<name>` dihapus user bila perlu.
+- Tambah: `git submodule add --depth 1 <url> .kilo/vendor/<name>`, tambah baris di manifest konsumen, buat symlink, commit `chore(skills): add <vendor> submodule`.
+- Hapus: hapus baris manifest vendor itu, hapus symlink, `git submodule deinit -f .kilo/vendor/<name>`, `git rm -f .kilo/vendor/<name>`, commit. Folder `.git/modules/.kilo/vendor/<name>` dihapus user bila perlu.
 
 ## 7. Clone baru
 
-`git clone --recurse-submodules --shallow-submodules <repo>` → `git config submodule.recurse true` → `.kilo/link-skills.sh`. Jika folder vendor kosong: `git submodule update --init --depth 1`.
+`git clone --recurse-submodules --shallow-submodules <repo>` → `git config submodule.recurse true`. Jika folder vendor kosong: `git submodule update --init --depth 1`. Lalu konsumen membuat symlink sesuai manifest mereka.
 
 ## 8. Larangan
 
 - Mengedit, `git pull`, atau `git checkout` di dalam `.kilo/vendor/<v>/`.
 - `git submodule update --remote` tanpa diminta user.
-- Meng-commit hasil generate (`.kilo/skills*/`).
 - Mengubah `.gitmodules` (URL atau branch) tanpa konfirmasi: itu mengganti sumber instruksi agent.
