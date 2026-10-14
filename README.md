@@ -13,7 +13,6 @@ A curated collection of specialized AI skills for software engineering tasks. Ea
 ├── scripts/            - Utility scripts for skill management
 ├── docs/               - Notes in repo
 ├── .github/            - GitHub Actions and workflows
-└── SUBMODULE-CATALOG.md - Submodule catalog reference (optional)
 ```
 
 ## Using as a Git Submodule
