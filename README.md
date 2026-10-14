@@ -10,14 +10,14 @@ A curated collection of specialized AI skills for software engineering tasks. Ea
 ├── .kilo/skills/       - Active skill symlinks
 ├── agents/             - Agent configurations and setups
 ├── rules/              - System rules and policies
-├── rules-code/         - Code style and linting rules
-├── rules-system-designer/ - System design pattern rules
+├── rules-code/         - Rules for specific Mode Code (Kilo native)
+├── rules-system-designer/ - Rules for specific Mode/Agent System designer (custom mode)
 ├── scripts/            - Utility scripts for skill management
-├── skills-plan/        - Skill planning and tracking
-├── skills/             - Skill index and metadata
+├── skills-plan/        - Skill for specific Mode Plan (Kilo native)
+├── skills/             - Skill for All Mode / General (Kilo native)
 ├── scripts/            - Generated and utility scripts
 ├── SUBMODULE-CATALOG.md - Submodule catalog reference
-├── docs/               - Design notes and philosophy
+├── docs/               - Notes in repo
 ├── .github/            - GitHub Actions and workflows
 ```
 
