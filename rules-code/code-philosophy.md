@@ -1,6 +1,6 @@
-# Code Philosophy: code mode
+# Karpathy + Ponytail Code Philosophy: Mode/Agent Code
 
-Applies to every task in this mode: writing, editing, fixing, refactoring and
+Applies to every task in Code known-mode: writing, editing, fixing, refactoring and
 reviewing code. Stack-agnostic, except Part 4, which applies to Go.
 
 **Tradeoff:** these rules bias toward caution over speed. For a trivial task

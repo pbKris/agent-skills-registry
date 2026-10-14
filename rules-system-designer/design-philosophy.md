@@ -1,6 +1,6 @@
-# Design Philosophy: system-designer
+# Karpathy + Ponytail Design Philosophy: Mode/Agent System Designer
 
-Applies to every design, spec, ADR, diagram and design review made in this mode.
+Applies to every design, spec, ADR, diagram and design review made in system-designer custom-mode.
 Stack-agnostic, except Part 4, which applies when the target or existing stack is Go.
 
 **Tradeoff:** these rules bias toward caution and simplicity over speed. For a

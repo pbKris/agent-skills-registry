@@ -1,6 +1,6 @@
 ---
 name: create-plan
-description: Convert the design artifacts from system-designer mode (GLOSSARY.md, docs/adr/, artifacts/SPEC.md, tickets) into a Kilo execution plan in .kilo/plans/. Use after to-spec and to-tickets, before implementation. Read-only for the artifacts; writes only the plan file.
+description: Convert the design artifacts from system-designer mode (GLOSSARY.md, docs/adr/, artifacts/SPEC.md, tickets) into a Kilo execution plan in native `.kilo/plans/`. Use after to-spec and to-tickets, before implementation. Read-only for the artifacts; writes only the plan file.
 ---
 
 # Create Plan
@@ -11,8 +11,8 @@ redesign, you do not implement.
 
 ## Invoked by
 
-`/create-plan`, in `plan` mode, after `/to-spec` and `/to-tickets` have run in
-`system-designer` mode.
+`/create-plan`, in `plan` known-mode/agent, after `/to-spec` and `/to-tickets` have run in
+`system-designer` custom-mode/agent.
 
 ## 1. Read first (required)
 

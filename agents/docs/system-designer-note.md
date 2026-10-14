@@ -6,7 +6,7 @@ File `system-designer.md` sudah dibuat di `.kilo/agents/`, mengikuti template di
 - **Pra-cek:** memastikan `docs/agents/` ada (kalau belum, user disuruh menjalankan setup sekali, agent tidak menjalankannya sendiri), membaca konfigurasi tracker, `GLOSSARY.md`, ADR, dan `go.mod`.
 - **Alur kerja:** `grill-with-docs` (dengan `domain-modeling`) → `to-spec` → `go-spec-reviewer` (khusus Go) → `to-tickets` → handoff ke `plan` mode. `/go` berfungsi sebagai guardrail arsitektur, bukan langkah. Setiap langkah selesai, agent menyebut perintah berikutnya dan menunggu, tidak berantai sendiri.
 - **Tabel 14 skill:** cara memulai tiap skill (user via `/command`, atau agent sendiri untuk `domain-modeling`) dan fungsinya. Skill `go` dimuat lewat router `SKILL.md` → `index-go.md` → satu file referensi.
-- **Kontrak output:** hanya boleh menulis `GLOSSARY.md`, `docs/adr/`, `artifacts/SPEC.md`, tiket, dan `.scratch/` untuk prototype. Dilarang menyentuh source code, `.kilo/plans/`, `vendor/`, `.kilo/agent-files.manifest`, dan `.kilo/kilo.jsonc`. Perubahan skill dilakukan dengan memperbarui `.kilo/agent-files.manifest` dan menjalankan `.kilo/link-agent-files.sh` (biasanya di mode plan).
+- **Kontrak output:** hanya boleh menulis `GLOSSARY.md`, `docs/adr/`, `artifacts/SPEC.md`, tiket, dan `.scratch/` untuk prototype. Dilarang menyentuh source code, `.kilo/plans/`, `vendor/`, manifest, dan config. Perubahan skill harus lewat `/change-manifest` di plan mode.
 
 **Soal "mode/agent lain tidak bisa memanggilnya":**
 - `mode: primary` mencegah agent lain men-delegasikan tugas ke system-designer.

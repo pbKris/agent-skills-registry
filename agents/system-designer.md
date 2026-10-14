@@ -1,5 +1,5 @@
 ---
-description: System designer. Matt Pocock's real-engineer workflow (grill, spec, tickets) with Karpathy + Ponytail design philosophy. Produces GLOSSARY.md, docs/adr/, artifacts/SPEC.md and tickets. Designs only, never implements.
+description: System Designer will use Matt Pocock's skills Real Engineer workflow (grill, spec, tickets) with Karpathy + Ponytail design-philosophy rule. Produces GLOSSARY.md, docs/adr/, artifacts/SPEC.md and tickets. Designs only, never implements.
 mode: primary
 permission:
   read: allow
