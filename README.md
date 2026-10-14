@@ -1,98 +1,95 @@
-# Agent Skills Registry
+# Git Submodule Registry
 
-A central repository for sharing and distributing Kilo skills via the `skills.urls` configuration. This repo allows teams to share skills without manual symlinking or copying.
+A central repository for sharing and distributing Git submodules. This repo allows teams to share submodules without manual symlinking or copying.
 
 ## Overview
 
-This repository serves as a central source for agent skills that can be consumed by Kilo through the `skills.urls` configuration in `kilo.jsonc`. Skills are automatically fetched, namespaced, and cached by Kilo under `~/.cache/kilo/skills/<skill-name>/`.
+This repository serves as a central source for Git submodules that can be consumed by projects through standard Git submodule mechanisms. Submodules are fetched and managed using standard Git commands.
 
-## Skills Included
+## Submodules Included
 
-See the [Skills Catalog](SKILLS-CATALOG.md) for the complete list of available skills. Currently includes:
+See the [Submodule Catalog](SUBMODULE-CATALOG.md) for the complete list of available submodules. Currently includes:
 
-| Skill | Description |
-|-------|-------------|
+| Submodule | Description |
+|-----------|-------------|
 | **git-convention** | Enforce industry-standard naming for branch, commit, and tag with developer initial `pbk`. Universal conventions for branch `<type>/<scope>-<desc>-pbk`, commit Conventional Commits, annotated tags `vN-baseline-context-pbk`. **Submodule vendor support** (`references/submodule-vendor.md`). |
-| **skills-urls-agent-skills-registry** | Set up and maintain a remote agent-skills-registry repo consumable by Kilo via `skills.urls` in kilo.jsonc. Documents manifest, repo structure, URL rules, per-mode folders. |
-| **gotth-code-reviewer** | Review code, diffs, and PRs in GOTTH stack projects and produce prioritized evidence-based findings. |
-| **gotth-html-converter** | Convert existing UI design (HTML/CSS/JS like jQuery) into working GOTTH application with pixel-faithful visuals. |
+| **submodule-manager** | Set up and maintain a remote submodule registry. Documents manifest, repo structure, and usage guidelines. |
+| **go-standard** | Go language standard library references and best practices for modern Go development. |
 | **gotth-stack** | Provide architecture rules, patterns, and checklists for building web UI with GOTTH stack (Go, templ, Tailwind, HTMX, Alpine). |
 
-> **Note**: Remote skills are **untrusted** - inline ``!`command``` in SKILL.md is **not** executed for security. This differs from local skills in `~/.kilo/skills/` which are trusted.
+> **Note**: Remote submodules are **untrusted** - inline shell commands in documentation are **not** executed for security. This differs from local submodules in `~/projects/submodules/` which are trusted.
 
 ## Repository Structure
 
 ```
-agent-skills-registry/
+git-submodule-registry/
 ├── .git/                     # Git repository (initialized with conventional commits)
 ├── README.md                 # This file
-├── SKILLS.md                 # Detailed skills catalog
-├── skills/
-│   ├── index.json            # Manifest - valid JSON with skills array
+├── SUBMODULE-CATALOG.md      # Detailed submodules catalog
+├── submodules/
+│   ├── index.json            # Manifest - valid JSON with submodules array
 │   ├── git-convention/
-│   │   ├── SKILL.md          # Git workflow rules for pbk
-│   │   └── git-convention-note.md
-│   ├── skills-urls-agent-skills-registry/
-│   │   ├── SKILL.md          # How to set up this registry
-│   │   └── skills-urls-agent-skills-registry-note.md
-│   ├── gotth-code-reviewer/
-│   │   └── SKILL.md          # GOTTH code reviewer
-│   ├── gotth-html-converter/
-│   │   └── SKILL.md          # GOTTH HTML converter
+│   │   ├── documentation/    # Submodule documentation
+│   │   └── .gitmodules       # Optional: nested submodule configuration
+│   ├── submodule-manager/
+│   │   ├── documentation/    # How to set up this registry
+│   │   └── .gitmodules
+│   ├── go-standard/
+│   │   ├── documentation/    # Go standard library references
+│   │   └── .gitmodules
 │   └── gotth-stack/
-│       ├── SKILL.md          # GOTTH stack builder
-│       └── gotth-skills-rules-note.md
+│       ├── documentation/    # GOTTH stack architecture rules
+│       └── .gitmodules
 └── scripts/
     └── index-json-generator.py  # Python script to regenerate index.json
 ```
 
 ## Usage
 
-To use skills from this registry in your Kilo configuration:
+To use submodules from this registry in your project:
 
-1. Add the registry URL to your `kilo.jsonc` (typically in `~/.config/kilo/kilo.jsonc`):
+1. Add the submodule to your project's `.gitmodules` file (typically in your project root):
 
-```jsonc
-{
-  "skills": {
-    "urls": [
-      "https://raw.githubusercontent.com/your-username/agent-skills-registry/main/skills"
-    ]
-  }
-}
-```
+   ```ini
+   [submodule "submodules/git-convention"]
+       path = vendor/git-convention
+       url = https://raw.githubusercontent.com/your-username/git-submodule-registry/main/submodules/git-convention
+   ```
 
-2. Restart Kilo or reload configuration
-3. Verify skills are loaded by asking: "What skills do you have available?"
-4. Use skills by referencing them in your prompts or agent configurations
+2. Initialize and update submodules:
+
+   ```bash
+   git submodule init
+   git submodule update
+   ```
+
+3. Verify submodules are loaded by checking the `vendor/` directory.
+4. Use submodules by referencing them in your project (e.g., import Go packages, use documentation).
 
 ## How It Works
 
-When Kilo encounters a `skills.urls` configuration:
+When a project references a submodule from this registry:
 
-1. **Fetches** the remote `index.json` manifest from the URL path (not the file itself)
-2. **Downloads** and namespaces each listed skill into its own cache subfolder under `~/.cache/kilo/skills/<skill-name>/`
-3. **Makes skills** available for use in agent configurations and prompts
+1. **Fetches** the submodule from the specified URL using standard Git submodule commands
+2. **Places** the submodule content into the specified `path` (e.g., `vendor/git-convention`)
+3. **Makes submodule** available for use in the project
 
-**Priority order** (highest to lowest):
-1. Local paths via `skills.paths` in kilo.jsonc
-2. Bundled skills in the repo
-3. **Remote URLs via `skills.urls`** (lowest priority, untrusted)
+**Note**: This registry provides a centralized location to discover and reference Git submodules, but the actual submodule management is handled by standard Git commands.
 
 ## Contributing
 
-To add new skills to this registry:
+To add new submodules to this registry:
 
-1. Create a new directory under `skills/` with your skill name
-2. Add a `SKILL.md` file following the Kilo skill format (YAML frontmatter with `name` and `description`)
+1. Create a new directory under `submodules/` with your submodule name
+2. Add the submodule content (documentation, code, etc.) and an optional `.gitmodules` file if it has nested submodules
 3. Run `python scripts/index-json-generator.py` to regenerate the `index.json` manifest
 4. Commit changes following the git-convention in this repo (conventional commits)
 5. Push to main branch and create a version bump if desired (annotated tag: `vN-baseline-context-pbk`)
 
 ## License
 
-See individual skill files for license information. The git-convention skill is licensed under MIT - pbk.
+See individual submodule directories for license information. The git-convention submodule is licensed under MIT - pbk.
 
 ---
 
-*This README was generated/updated as part of the agent-skills-registry setup. Last updated: 11 Oct 2026 (git-convention v1.1.0: submodule vendor support)*
+*This README was generated/updated as part of the git-submodule-registry setup. Last updated: 14 Oct 2026 (git-convention v1.1.0: submodule vendor support)*

@@ -1,5 +1,5 @@
 {
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
-  "workbench.editor.enablePreview": false
+  "workbench.editor.enablePreview": true
 }
