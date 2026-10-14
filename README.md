@@ -22,22 +22,22 @@ A curated collection of specialized AI skills for software engineering tasks. Ea
 To make this registry available as a source of agentic files (skills, agents, rules, etc.) in another Kilo-powered project:
 
 1. Add the registry as a submodule under `.kilo/vendor/` (or any preferred path):
-   ```bash
-   git submodule add <repository-url> .kilo/vendor/agent-skills-registry
-   ```
+    ```bash
+    git submodule add <repository-url> .kilo/vendor/pbk
+    ```
 
 2. Run the linking script to create symlinks in `.kilo/` that point to the submodule contents:
-   ```bash
-   .kilo/vendor/agent-skills-registry/.kilo/link-agent-files.sh
-   ```
-   This will create the following symlinks inside `.kilo/`:
-   - `agents` → `../vendor/agent-skills-registry/agents`
-   - `rules-code` → `../vendor/agent-skills-registry/rules-code`
-   - `rules-system-designer` → `../vendor/agent-skills-registry/rules-system-designer`
-   - `skills-plan` → `../vendor/agent-skills-registry/skills-plan`
-   - `skills` → `../vendor/agent-skills-registry/skills`
+    ```bash
+    .kilo/vendor/pbk/.kilo/link-agent-files.sh
+    ```
+    This will create the following symlinks inside `.kilo/`:
+    - `agents` → `../vendor/pbk/agents`
+    - `rules-code` → `../vendor/pbk/rules-code`
+    - `rules-system-designer` → `../vendor/pbk/rules-system-designer`
+    - `skills-plan` → `../vendor/pbk/skills-plan`
+    - `skills` → `../vendor/pbk/skills`
 
-   (All paths are relative, so they remain valid even if the submodule path changes.)
+    (All paths are relative, so they remain valid even if the submodule path changes. Replace `pbk` with your own registry name as needed.)
 
 3. After linking, Kilo will automatically load skills, agents, and rules from the submodule.
 
