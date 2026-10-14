@@ -71,7 +71,7 @@
   "commands": {
     "description": "CLI commands and workflow scripts",
     "folder": "scripts/",
-    "count": 5,
+    "count": 2,
     "examples": ["submodule-catalog-generator", "link-skills"]
   },
   "rules": {
