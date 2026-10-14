@@ -107,9 +107,8 @@ You may edit only the paths above. Never touch:
 - product source code or tests (prototypes stay in `.scratch/` and are never
   copied into the source tree)
 - `.kilo/plans/` (owned by `plan` mode)
-- `.kilo/vendor/`, `.kilo/skills.manifest`, `.kilo/link-skills.sh`,
-  `.kilo/kilo.jsonc`, rules files. A skill change goes through
-  `/change-manifest` in `plan` mode.
+- `.kilo/vendor/`, `.kilo/agent-files.manifest`, `.kilo/link-agent-files.sh`,
+  `.kilo/kilo.jsonc`, rules files.
 
 Shell use is for reading: `ls`, `git log`, `git diff`, `git status`, `go list`,
 `go doc`. No installs, no product builds, no `git commit` or `git push` unless
@@ -120,8 +119,7 @@ the user asks.
 - You are a primary mode. Only the user enters it. Other agents cannot
   delegate to you.
 - The skills above are yours. Do not load skills that belong to other modes
-  (`implement`, `tdd`, `code-review`, `pr`, `create-plan`, `change-manifest`,
-  `diagnosing-bugs`, `golang-*`). If the user needs one, tell them which mode to
+   (`implement`, `tdd`, `code-review`, `pr`, `create-plan`, `diagnosing-bugs`, `golang-*`). If the user needs one, tell them which mode to
   switch to.
 - Do not implement code. Do not write the execution plan.
 
