@@ -39,6 +39,9 @@ git tag --list "v*-*pbk" --sort=-v:refname | head -20
 # 3. Cleanliness
 git branch --merged
 git fetch --prune --dry-run
+
+# 4. Submodule (hanya jika ada .gitmodules)
+git submodule status
 ```
 
 Agent harus laporkan:
@@ -47,6 +50,7 @@ Agent harus laporkan:
 - 5 commit terakhir
 - Tag baseline terakhir (v<N>-baseline-*-pbk)
 - Apakah ada branch `*-pbk` yang sudah ada dengan nama mirip
+- Jika ada `.gitmodules`: status submodule (sinkron / basi / kotor). Aturan lengkap: `references/submodule-vendor.md`
 
 **Step 3 - Decision:**
 Baru setelah itu agent suggest nama branch/commit/tag sesuai rule di bawah, dan minta konfirmasi user.
@@ -350,6 +354,18 @@ npx skills@latest add pbk/git-rule
 git checkout develop && git pull
 git checkout -b feat/auth-login-throttling-pbk
 ```
+
+---
+
+## 8. Submodule Integration Notes
+
+Repo ini **tidak menyediakan manifest atau script linking**. Konsumen yang menambahkan repo ini sebagai submodule (misal di `.kilo/vendor/pbk`) harus menyediakan manifest sendiri (daftar direktori yang diekspos) dan mekanisme linking (symlink atau script kustom) di `.kilo/` mereka sendiri.
+
+Ketika ada `.gitmodules` di repo konsumen, agent harus:
+1. Menjalankan `git submodule status` untuk cek status vendor.
+2. Jika vendor basi (awalan `+` di `git submodule status`), jalankan `git submodule update --init --depth 1`.
+3. Agent **tidak** menjalankan `.kilo/link-skills.sh` karena script tersebut tidak ada di repo ini. Konsumen bertanggung jawab membuat symlink mereka sendiri (misal via `ln -s ../../vendor/pbk/agents .kilo/agents` dst).
+4. Aturan detail submodule ada di `references/submodule-vendor.md`.
 
 ---
 
