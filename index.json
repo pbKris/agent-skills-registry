@@ -63,30 +63,37 @@
     }
   ],
   "agents": {
+    "name": "agent-registry",
     "description": "Agent configurations and setups for the skill registry",
-    "folder": "agents/",
-    "count": 1,
-    "example": "system-designer"
+    "files": [
+      "agents/system-designer.md"
+    ],
+    "version": "1.0.0"
   },
   "commands": {
+    "name": "cli-commands",
     "description": "CLI commands and workflow scripts",
-    "folder": "scripts/",
-    "count": 2,
-    "examples": ["submodule-catalog-generator", "link-skills"]
+    "files": [
+      "scripts/submodule-catalog-generator.py",
+      "scripts/link-skills.sh"
+    ],
+    "version": "1.0.0"
   },
   "rules": {
+    "name": "code-rules",
     "description": "System and code style rules organized by mode",
-    "categories": {
-      "rules-code": "Code style and linting rules (Kilo native mode)",
-      "rules-system-designer": "System design pattern rules (custom mode)"
-    },
-    "count": 2,
-    "total_rules_files": 2
+    "files": [
+      "rules-code/code-philosophy.md",
+      "rules-system-designer/design-philosophy.md"
+    ],
+    "version": "1.0.0"
   },
   "skills-plan": {
+    "name": "skill-plan",
     "description": "Skill planning and tracking artifacts",
-    "folder": "skills-plan/",
-    "count": 1,
-    "example": "create-plan"
+    "files": [
+      "skills-plan/create-plan.md"
+    ],
+    "version": "1.0.0"
   }
 }
