@@ -61,5 +61,32 @@
       ],
       "version": "1.0.0"
     }
-  ]
+  ],
+  "agents": {
+    "description": "Agent configurations and setups for the skill registry",
+    "folder": "agents/",
+    "count": 1,
+    "example": "system-designer"
+  },
+  "commands": {
+    "description": "CLI commands and workflow scripts",
+    "folder": "scripts/",
+    "count": 5,
+    "examples": ["submodule-catalog-generator", "link-skills"]
+  },
+  "rules": {
+    "description": "System and code style rules organized by mode",
+    "categories": {
+      "rules-code": "Code style and linting rules (Kilo native mode)",
+      "rules-system-designer": "System design pattern rules (custom mode)"
+    },
+    "count": 2,
+    "total_rules_files": 2
+  },
+  "skills-plan": {
+    "description": "Skill planning and tracking artifacts",
+    "folder": "skills-plan/",
+    "count": 1,
+    "example": "create-plan"
+  }
 }
