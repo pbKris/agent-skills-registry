@@ -5,21 +5,41 @@ A curated collection of specialized AI skills for software engineering tasks. Ea
 ## Structure
 
 ```
-├── .kilo/              - Kilo configuration and skill references
-├── skills/             - Root skill directories (symlinked to .kilo/skills)
-├── .kilo/skills/       - Active skill symlinks
+├── .kilo/              - Kilo configuration (manifest and linking script)
 ├── agents/             - Agent configurations and setups
-├── rules/              - System rules and policies
 ├── rules-code/         - Rules for specific Mode Code (Kilo native)
 ├── rules-system-designer/ - Rules for specific Mode/Agent System designer (custom mode)
-├── scripts/            - Utility scripts for skill management
+├── skills/             - Root skill directories (each skill as subdirectory)
 ├── skills-plan/        - Skill for specific Mode Plan (Kilo native)
-├── skills/             - Skill for All Mode / General (Kilo native)
-├── scripts/            - Generated and utility scripts
-├── SUBMODULE-CATALOG.md - Submodule catalog reference
+├── scripts/            - Utility scripts for skill management
 ├── docs/               - Notes in repo
 ├── .github/            - GitHub Actions and workflows
+└── SUBMODULE-CATALOG.md - Submodule catalog reference (optional)
 ```
+
+## Using as a Git Submodule
+
+To make this registry available as a source of agentic files (skills, agents, rules, etc.) in another Kilo-powered project:
+
+1. Add the registry as a submodule under `.kilo/vendor/` (or any preferred path):
+   ```bash
+   git submodule add <repository-url> .kilo/vendor/agent-skills-registry
+   ```
+
+2. Run the linking script to create symlinks in `.kilo/` that point to the submodule contents:
+   ```bash
+   .kilo/vendor/agent-skills-registry/.kilo/link-agent-files.sh
+   ```
+   This will create the following symlinks inside `.kilo/`:
+   - `agents` → `../vendor/agent-skills-registry/agents`
+   - `rules-code` → `../vendor/agent-skills-registry/rules-code`
+   - `rules-system-designer` → `../vendor/agent-skills-registry/rules-system-designer`
+   - `skills-plan` → `../vendor/agent-skills-registry/skills-plan`
+   - `skills` → `../vendor/agent-skills-registry/skills`
+
+   (All paths are relative, so they remain valid even if the submodule path changes.)
+
+3. After linking, Kilo will automatically load skills, agents, and rules from the submodule.
 
 ## Available Skills
 
@@ -32,7 +52,7 @@ A curated collection of specialized AI skills for software engineering tasks. Ea
 | `gotth-stack` | Stack-related development guides | - |
 | `gotth-code-reviewer` | Code review automation | - |
 
-## How to Use
+## How to Use Skills
 
 Each skill can be invoked via `/<skill-name>` in the CLI. Skills typically follow this protocol:
 
@@ -42,19 +62,7 @@ Each skill can be invoked via `/<skill-name>` in the CLI. Skills typically follo
 4. **Execute** - After user confirmation, perform the work
 5. **Guardrails** - Ensure best practices are followed
 
-See individual skill `SKILL.md` files in `.kilo/skills/` or `skills/<name>/` for detailed workflows.
-
-## Installation
-
-```bash
-# Clone the registry
-git clone <repository-url>
-
-# Skills are auto-discovered via .kilo/skills symlinks
-# Or install individually:
-mkdir -p .claude/skills/
-ln -s path/to/skill/SKILL.md .claude/skills/<name>/SKILL.md
-```
+See individual skill `SKILL.md` files in `skills/<name>/` for detailed workflows.
 
 ## License
 
