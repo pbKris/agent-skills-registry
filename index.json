@@ -79,11 +79,18 @@
     ],
     "version": "1.0.0"
   },
-  "rules": {
-    "name": "code-rules",
-    "description": "System and code style rules organized by mode",
+  "rules-code": {
+    "name": "code-style-rules",
+    "description": "Code style and linting rules (Kilo native mode)",
     "files": [
-      "rules-code/code-philosophy.md",
+      "rules-code/code-philosophy.md"
+    ],
+    "version": "1.0.0"
+  },
+  "rules-system-designer": {
+    "name": "system-design-rules",
+    "description": "System design pattern rules (custom mode)",
+    "files": [
       "rules-system-designer/design-philosophy.md"
     ],
     "version": "1.0.0"
