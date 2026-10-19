@@ -1,6 +1,6 @@
 ---
 name: git-convention
-description: Enforce branch/commit/tag naming with <developer-initial> suffix. Interview, inspect git, propose names. Use for "cek git rule", "buat branch baru", "mau commit". Baseline tags, Conventional Commits, PR-only. Repo ber-submodule (.gitmodules): bump/update vendor, baca references/submodule-vendor.md.
+description: Enforce git branch/commit/tag naming convention (Conventional Commits, baseline tags, <developer-initial> suffix, PR-only). Trigger: "cek git rule", "buat branch baru", "mau commit", or bumping vendor submodule (see references/submodule-vendor.md).
 ---
 
 # git-convention — Git Workflow Rules
@@ -14,10 +14,11 @@ description: Enforce branch/commit/tag naming with <developer-initial> suffix. I
 **Trigger:** User types `/git-convention` or says "cek git rule", "buat branch baru", "mau commit".
 > **Note:** Replace `<developer-initial>` with your initials (e.g., `pbk`, `jdoe`, `asm`) throughout this workflow.
 
-### Agent Invocation Protocol (WAJIB)
+### Agent Invocation Protocol (REQUIRED)
 
 **Step 1 - Interview (grill):**
-Agent WAJIB tanya dulu, jangan langsung bikin branch:
+The agent MUST interview the user before creating a branch.
+Ask the following questions in Indonesian:
 ```
 1. Kamu mau ngerjain apa? (feat / fix / hotfix / refactor / chore / docs / test / spike)
 2. Scope / modul apa? (auth, payment, api, ui, infra)
@@ -27,8 +28,7 @@ Agent WAJIB tanya dulu, jangan langsung bikin branch:
 ```
 
 **Step 2 - Workspace & Git Health Check:**
-Agent WAJIB jalankan dan rangkum:
-
+The agent MUST run and summarize the following:
 ```
 # 1. Workspace status
 git status --porcelain
@@ -48,8 +48,7 @@ git fetch --prune --dry-run
 # 4. Submodule (hanya jika ada .gitmodules)
 git submodule status
 ```
-
-Agent harus laporkan:
+The agent must report:
 - Apakah working tree clean atau kotor
 - Branch sekarang dan base branch (main/develop)
 - 5 commit terakhir
@@ -58,7 +57,7 @@ Agent harus laporkan:
 - Jika ada `.gitmodules`: status submodule (sinkron / basi / kotor). Aturan lengkap: `references/submodule-vendor.md`
 
 **Step 3 - Decision:**
-Baru setelah itu agent suggest nama branch/commit/tag sesuai rule di bawah, dan minta konfirmasi user.
+After that, the agent should suggest branch/commit/tag names according to the rules below, and ask for user confirmation.
 
 ---
 
@@ -170,8 +169,8 @@ chore(tooling): setup husky and lint-staged
 Ensures conventional commits and eslint run pre-commit.
 ```
 
-### Template untuk agent
-Agent harus suggest commit message seperti ini setelah cek diff:
+### Template for agent
+The agent should suggest a commit message like this after checking the diff:
 ```bash
 git diff --cached --stat
 git diff --cached
@@ -233,11 +232,11 @@ v0_baseline_start_pbk (underscore)
 
 ### Agent checklist for tagging
 ```bash
-# Pastikan
+# Make sure
 git checkout main
 git pull
-git status # harus clean
-npm test / go test / etc # harus green
+git status # must be clean
+npm test / go test / etc # must be green
 git tag -a v1-baseline-mvp-auth-<developer-initial> -m "baseline: MVP auth flow complete - login, register, jwt"
 git push origin v1-baseline-mvp-auth-<developer-initial>
 ```
@@ -246,40 +245,28 @@ git push origin v1-baseline-mvp-auth-<developer-initial>
 
 ## 4. Full Workflow Checklist for Agent
 
-Ketika `/git-convention` di-invoke, agent harus lakukan ini berurutan:
+When `/git-convention` is invoked, the agent must do the following in order:
 
-### Phase 1: Grill
-- [ ] Tanya: mau ngerjain apa, type, scope, ticket, perlu baseline?
-- [ ] Tanya: base branch mau dari mana? (main/develop)
-- [ ] Tanya: developer initial apa? (contoh: pbk)
-
-### Phase 2: Inspect
-- [ ] `git status --porcelain` -> laporkan file dirty/untracked
-- [ ] `git branch --show-current` dan `git log --oneline -10`
-- [ ] `git tag --list "v*-*<developer-initial>" -n` -> baseline terakhir
-- [ ] `git diff --stat` -> apa yang berubah
-- [ ] Cek apakah ada branch dengan nama mirip: `git branch -a | grep <developer-initial>`
-
-### Phase 3: Propose
-- [ ] Suggest 1-2 nama branch yang valid sesuai rule: `<type>/<scope>-<desc>-<developer-initial>`
-- [ ] Jika ada perubahan: suggest commit message conventional
-- [ ] Jika user bilang ini baseline: suggest tag `v<N>-baseline-<context>-<developer-initial>` dengan N = last tag N+1
-- [ ] Jelaskan kenapa nama itu dipilih
+### Phase 1-3: Grill, Inspect, Propose
+Detailed steps are in §0 (Step 1-3). Short checklist for execution:
+- [ ] Interview completed (type, scope, ticket, baseline?, base branch, initial)
+- [ ] Workspace & git health check has been run + reported to user
+- [ ] Branch/commit/tag names have been proposed and confirmed by user
 
 ### Phase 4: Execute (after user YES)
-- [ ] Jika working tree kotor dan user mau branch baru: `git stash push -m "temp: before <new-branch>-<developer-initial>"`
+- [ ] If working tree is dirty and user wants a new branch: `git stash push -m "temp: before <new-branch>-<developer-initial>"`
 - [ ] `git checkout <base-branch> && git pull`
-- [ ] Jika ada `.gitmodules`: sinkronkan submodule dan jalankan `.kilo/link-skills.sh` (`references/submodule-vendor.md` §3)
+- [ ] If there is a `.gitmodules`: synchronize submodule and run `.kilo/link-skills.sh` (`references/submodule-vendor.md` §3)
 - [ ] `git checkout -b <new-branch-<developer-initial>>`
-- [ ] Jika ada stash: `git stash pop`
-- [ ] Untuk tag: `git tag -a <tag> -m "<message>"`
+- [ ] If there is a stash: `git stash pop`
+- [ ] For tag: `git tag -a <tag> -m "<message>"`
 
 ### Phase 5: Guardrails
-- [ ] JANGAN pernah `git push --force` ke main/develop tanpa konfirmasi eksplisit
-- [ ] JANGAN pernah commit langsung ke main/develop
-- [ ] JANGAN pernah buat tag tanpa `-<developer-initial>` dan tanpa `baseline`
-- [ ] Selalu ingatkan untuk buat PR, bukan push langsung
-- [ ] JANGAN `git add -A` / `git commit -a` bila `git status` menampilkan baris submodule; vendor read-only, bump pointer = commit sendiri (`references/submodule-vendor.md` §4)
+- [ ] NEVER `git push --force` to main/develop without explicit confirmation
+- [ ] NEVER commit directly to main/develop
+- [ ] NEVER create a tag without `-<developer-initial>` and without `baseline`
+- [ ] Always remind to create a PR, not push directly
+- [ ] NEVER `git add -A` / `git commit -a` if `git status` shows submodule lines; vendor read-only, bump pointer = commit alone (`references/submodule-vendor.md` §4)
 
 ---
 
@@ -316,8 +303,13 @@ Skill ini kompatibel dengan standar aliran kerja yang umum dipakai di berbagai p
 - **Test dan code review di branch `*-<developer-initial>`**: Setiap branch dapat dijalankan uji (test, code review) sebelum di-merge. Alur ini kompatibel dengan tools seperti `/tdd`, `/code-review`, dan sejenis skill lain yang berjalan di branch sementara.
 - **Suggest perbaikan setelah review**: Evaluasi perbaikan dari sesi evaluasi (seperti post-mortem, refleksi, atau sprint review) dapat mengintegrasikan hasil dari konvensi git-convention.
 
-Cara install sebagai skill:
+Cara install sebagai skill (sesuaikan direktori dengan tool yang dipakai):
 ```
+# Kilo Code
+mkdir -p .kilo/skills/git-convention/
+cp git-convention.md .kilo/skills/git-convention/SKILL.md
+
+# Claude Code
 mkdir -p .claude/skills/git-convention/
 cp git-convention.md .claude/skills/git-convention/SKILL.md
 ```
